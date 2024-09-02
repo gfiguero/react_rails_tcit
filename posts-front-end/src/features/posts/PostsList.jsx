@@ -3,8 +3,16 @@ import { API_URL } from "../../contants";
 
 function PostsList() {
     const [posts, setPosts] = useState([])
+    const [originalPosts, setOriginalPosts] = useState([])
     const [, setLoading] = useState(true);
     const [, setError] = useState(null);
+    const Post = ({ post: {name, description }}) => (
+        <tr>
+            <td>{name}</td>
+            <td>{description}</td>
+            <td>borrar</td>
+        </tr>
+    )
 
     useEffect(() => {
         async function loadPosts() {
@@ -38,15 +46,9 @@ function PostsList() {
                     </tr>
                 </thead>
                 <tbody>
-                {posts.map((post) => {
-                    return (
-                        <tr key={post.id}>
-                            <td>{post.name}</td>
-                            <td>{post.description}</td>
-                            <td>Borrar</td>
-                        </tr>
-                    );
-                })}
+                {posts.map((post) => (
+                    <Post key={post.id} post={post} />
+                ))}
                 </tbody>
             </table>
         </div>
